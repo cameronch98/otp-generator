@@ -1,5 +1,6 @@
 """
 https://www.freecodecamp.org/news/how-to-check-if-a-file-exists-in-python/
+https://github.com/google/google-authenticator/wiki/Key-Uri-Format
 https://typer.tiangolo.com/tutorial/
 https://pypi.org/project/qrcode/
 https://pypi.org/project/pyotp/
