@@ -1,6 +1,6 @@
 # One Time Password Generator
 
-An application to generate QR codes for use in Google Authenticator and display the associated one time passwords in the terminal. The one time passwords are timed one time passwords on a 30 second timer. The application utilizes the qrcode and pyotp packages to generate the QR codes and display one time passwords. Multiple user support is included, although it isn't intended to be secure as secrets are listed in a readable JSON file. Typer was used to implement the CLI.
+An application to generate QR codes for use in Google Authenticator and display the associated one time passwords for that secret key in the terminal. The one time passwords are timed one time passwords (TOTPs) on a 30 second timer. For any given user/email, the one time passwords displayed in the terminal can be compared to those displayed in the Google Authenticator app after scanning the QR code. They should be the same since they are using the same base32 secret key! The application utilizes the qrcode and pyotp packages to generate the QR codes and display one time passwords. Multiple user support is included, although it isn't intended to be secure as secrets are listed in a readable JSON file. Typer was used to implement the CLI.
 
 # Setup
 

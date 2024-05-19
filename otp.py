@@ -1,3 +1,10 @@
+"""
+https://www.freecodecamp.org/news/how-to-check-if-a-file-exists-in-python/
+https://typer.tiangolo.com/tutorial/
+https://pypi.org/project/qrcode/
+https://pypi.org/project/pyotp/
+"""
+
 import os
 import typer
 import pyotp
@@ -55,10 +62,7 @@ def get_otp(
 
     # Retrieve secret key for user
     if not (secret := get_secret(email)):
-        print(
-            f"User with email {email} must first generate a QR code using the generate-qr command."
-        )
-        return
+        secret = create_secret(email)
 
     # Display OTPs
     totp = pyotp.TOTP(secret)
@@ -103,5 +107,5 @@ if __name__ == "__main__":
         with open("users.json", "w") as f:
             f.write("[]")
 
-    # Run application
+    # Make commands available
     app()
