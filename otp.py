@@ -39,7 +39,7 @@ def generate_qr(email: Annotated[Optional[str], typer.Argument()] = None):
     # Generate URI
     uri = pyotp.totp.TOTP(secret).provisioning_uri(name=email, issuer_name="OTP App")
 
-    # Generate QR code and display
+    # Generate QR code and save
     qr = qrcode.make(uri)
     qr.convert("RGB").save(f"qrcodes/{email}.jpg", "JPEG")
     print(f"Success: image saved at path qrcodes/{email}.jpg")
