@@ -9,9 +9,9 @@ https://pypi.org/project/pyotp/
 import os
 import typer
 import pyotp
-import qrcode
 import json
 import time
+import qrcode
 from typing import Optional
 from typing_extensions import Annotated
 
@@ -41,8 +41,8 @@ def generate_qr(email: Annotated[Optional[str], typer.Argument()] = None):
 
     # Generate QR code and display
     qr = qrcode.make(uri)
-    qr.save(f"qrcodes/{email}.png")
-    qr.show()
+    qr.convert("RGB").save(f"qrcodes/{email}.jpg", "JPEG")
+    print(f"Success: image saved at path qrcodes/{email}.jpg")
 
 
 @app.command()
