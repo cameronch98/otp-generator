@@ -1,12 +1,14 @@
 """
 https://www.freecodecamp.org/news/how-to-check-if-a-file-exists-in-python/
 https://github.com/google/google-authenticator/wiki/Key-Uri-Format
+https://www.regular-expressions.info/email.html
 https://typer.tiangolo.com/tutorial/
 https://pypi.org/project/qrcode/
 https://pypi.org/project/pyotp/
 """
 
 import os
+import re
 import typer
 import pyotp
 import json
@@ -32,6 +34,11 @@ def generate_qr(email: Annotated[Optional[str], typer.Argument()] = None):
     # Default to example email if not provided
     email = "example@example.com" if not email else email
 
+    # Validate email
+    if not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", email):
+        print(f"otp: {email} is not a valid email address")
+        return
+
     # Retrieve or generate secret key for URI creation
     if not (secret := get_secret(email)):
         secret = create_secret(email)
@@ -42,7 +49,7 @@ def generate_qr(email: Annotated[Optional[str], typer.Argument()] = None):
     # Generate QR code and save
     qr = qrcode.make(uri)
     qr.convert("RGB").save(f"qrcodes/{email}.jpg", "JPEG")
-    print(f"Success: image saved at path qrcodes/{email}.jpg")
+    print(f"otp: image saved at path qrcodes/{email}.jpg")
 
 
 @app.command()
@@ -61,16 +68,21 @@ def get_otp(
     # Default to example email if not provided
     email = "example@example.com" if not email else email
 
+    # Validate email
+    if not re.fullmatch(r"[^@]+@[^@]+\.[^@]+", email):
+        print(f"otp: {email} is not a valid email address")
+        return
+
     # Retrieve secret key for user
     if not (secret := get_secret(email)):
         secret = create_secret(email)
 
     # Display OTPs
     totp = pyotp.TOTP(secret)
-    print(totp.now())
+    print(f"otp: {totp.now()}")
     while repeat:
         time.sleep(30)
-        print(totp.now())
+        print(f"otp: {totp.now()}")
 
 
 def get_secret(email: str):
